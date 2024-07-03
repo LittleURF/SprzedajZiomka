@@ -31,6 +31,9 @@ export class GameComponent {
   protected input!: ElementRef<HTMLInputElement>;
 
   public readonly startDateIso = this.store.selectSignal(GameSelectors.StartDateIso);
+  public readonly gameCountdownEndDateIso = this.store.selectSignal(
+    GameSelectors.GameCountdownEndDateIso,
+  );
   public readonly status = this.store.selectSignal(GameSelectors.Status);
   public readonly wordsToWrite = this.store.selectSignal(GameSelectors.WordsToWrite);
   public readonly textInput$ = this.store.select(GameSelectors.TextInput);

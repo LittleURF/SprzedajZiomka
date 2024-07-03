@@ -4,6 +4,9 @@ import { GameSelectors } from './game.selectors';
 import { NEVER, filter, map, of, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { GameActions } from './game.actions';
 
+export const gamePreparationLengthInMs = 2_000;
+export const gameLengthInMs = 15_000;
+
 @Injectable()
 export class GameEffects {
   private readonly store = inject(Store);
@@ -14,12 +17,11 @@ export class GameEffects {
     this.runGameProgressCountdown();
   }
 
-  // MAKE THEM START ON PROPER ACTIONS & DISPLAY THE COUNTDOWN.
   private runGameStartCountdown() {
     this.actions$
       .pipe(
         ofActionSuccessful(GameActions.PrepareGame),
-        switchMap(() => timer(2_000)),
+        switchMap(() => timer(gamePreparationLengthInMs)),
         tap(() => this.store.dispatch(GameActions.StartGame)),
       )
       .subscribe();
@@ -30,7 +32,7 @@ export class GameEffects {
       .pipe(
         ofActionSuccessful(GameActions.StartGame),
         switchMap(() =>
-          timer(15_000).pipe(
+          timer(gameLengthInMs).pipe(
             takeUntil(this.actions$.pipe(ofActionSuccessful(GameActions.FinishGame))),
           ),
         ),

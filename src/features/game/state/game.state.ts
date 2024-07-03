@@ -6,6 +6,7 @@ import { tap, timer } from 'rxjs';
 import { DateTime } from 'luxon';
 import { WordToWrite } from './game';
 import { textToWordsToWrite } from './game,utils';
+import { gamePreparationLengthInMs } from './game.effects';
 
 export interface GameStateModel {
   status: 'waiting' | 'starting' | 'running';
@@ -31,7 +32,7 @@ export class GameState {
   prepareGame(ctx: StateContext<GameStateModel>) {
     updateState(ctx, (state) => {
       state.status = 'starting';
-      state.startDateIso = DateTime.utc().plus({ seconds: 2 }).toISO();
+      state.startDateIso = DateTime.utc().plus({ milliseconds: gamePreparationLengthInMs }).toISO();
       state.wordsToWrite = textToWordsToWrite('Wysyłam Ci gościu.');
       // // state.wordsToWrite = textToWordsToWrite(
       // //   'Wysyłam Ci gościu powiadomienie testowe. Tak, powiadomienie testowe.',

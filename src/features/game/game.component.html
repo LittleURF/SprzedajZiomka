@@ -20,6 +20,8 @@
     </button>
     } @if (status() === 'starting') {
     <span>{{ startDateIso() | countdown | async }}</span>
+    } @else if (status() === 'running') {
+    <span>{{ gameCountdownEndDateIso() | countdown | async }}</span>
     }
   </div>
   <app-progress-bar class="flex-grow" [progress]="progress()"></app-progress-bar>

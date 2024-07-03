@@ -1,6 +1,8 @@
 import { Selector, createPropertySelectors, createSelector } from '@ngxs/store';
 import { GameState, GameStateModel } from './game.state';
 import { WordToWrite } from './game';
+import { DateTime } from 'luxon';
+import { gameLengthInMs } from './game.effects';
 
 export class GameSelectors {
   static getSlices = createPropertySelectors<GameStateModel>(GameState);
@@ -13,6 +15,15 @@ export class GameSelectors {
   @Selector([GameState])
   static StartDateIso(game: GameStateModel) {
     return game.startDateIso;
+  }
+
+  @Selector([GameState])
+  static GameCountdownEndDateIso(game: GameStateModel) {
+    if (!game.startDateIso) {
+      return null;
+    }
+
+    return DateTime.fromISO(game.startDateIso).plus({ millisecond: gameLengthInMs }).toISO();
   }
 
   @Selector([GameState])
