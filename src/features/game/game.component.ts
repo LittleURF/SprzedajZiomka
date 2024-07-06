@@ -1,4 +1,12 @@
-import { Component, ElementRef, ViewChild, computed, effect, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  ViewChild,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
 import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
 import { GameActions } from './state/game.actions';
 import { GameSelectors } from './state/game.selectors';
@@ -53,6 +61,13 @@ export class GameComponent {
         }),
       )
       .subscribe();
+
+    this.actions$
+      .pipe(
+        ofActionSuccessful(GameActions.FinishGame),
+        tap(() => (this.input.nativeElement.value = '')),
+      )
+      .subscribe();
   }
 
   startGame() {
@@ -62,6 +77,7 @@ export class GameComponent {
   textInputChanged(event: Event) {
     if (event.target && 'value' in event.target && 'string' === typeof event.target.value) {
       this.store.dispatch(new GameActions.UpdateInputText(event.target.value));
+      console.log(event.target.value);
     }
   }
 }

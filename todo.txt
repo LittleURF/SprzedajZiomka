@@ -7,7 +7,7 @@ itd itp. (w tle male/duze gify z powiazanych wydarzen)
 
 Jesli napisze cały - reakcja z zestawu X (bez powtorek poki sie nie skoncza), Jesli napisze 70-99 - ...
 
-- pokazany timer
+- generate chat gpt texts
 - efekty.
 - dlugie teksty / losowe lub nie
 - podmieniony mamon na wozku

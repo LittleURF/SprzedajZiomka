@@ -5,6 +5,7 @@
       #input
       [value]="textInput"
       (input)="textInputChanged($event)"
+      (paste)="$event.preventDefault()"
       type="text"
       class="w-3/4 max-w-[800px] h-9 text-lg mb-12 p-2 outline-none"
       [disabled]="status() !== 'running'"

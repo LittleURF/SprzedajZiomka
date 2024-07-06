@@ -1,4 +1,10 @@
+import { gameTexts } from '../game-texts';
 import { WordToWrite, newWordToWrite } from './game';
+
+export const getRandomWordsToWrite = (): WordToWrite[] => {
+  const drawnText = gameTexts[Math.floor(Math.random() * gameTexts.length)];
+  return textToWordsToWrite(drawnText);
+};
 
 export const textToWordsToWrite = (text: string): WordToWrite[] => {
   const segmentsRaw = text.split(' ');
