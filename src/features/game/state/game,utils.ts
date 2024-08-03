@@ -1,8 +1,9 @@
+import { getRandomIndex } from '../../../core/utils/array';
 import { gameTexts } from '../game-texts';
 import { WordToWrite, newWordToWrite } from './game';
 
 export const getRandomWordsToWrite = (): WordToWrite[] => {
-  const drawnText = gameTexts[Math.floor(Math.random() * gameTexts.length)];
+  const drawnText = gameTexts[getRandomIndex(gameTexts)];
   return textToWordsToWrite(drawnText);
 };
 

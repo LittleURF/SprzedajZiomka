@@ -7,9 +7,7 @@ itd itp. (w tle male/duze gify z powiazanych wydarzen)
 
 Jesli napisze cały - reakcja z zestawu X (bez powtorek poki sie nie skoncza), Jesli napisze 70-99 - ...
 
-- generate chat gpt texts
-- efekty.
-- dlugie teksty / losowe lub nie
+- Implementacja zaplanowanych efektow 
 - podmieniony mamon na wozku
 - efekty dzwiekowe, na poczatek, na efekty i na koniec. 
 - ladne style calej strony

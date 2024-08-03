@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 import { WordToWrite } from './game';
 import { getRandomWordsToWrite, textToWordsToWrite } from './game,utils';
 import { gamePreparationLengthInMs } from './game.effects';
+import { gameTexts } from '../game-texts';
 
 export interface GameStateModel {
   status: 'waiting' | 'starting' | 'running';
@@ -33,7 +34,8 @@ export class GameState {
     updateState(ctx, (state) => {
       state.status = 'starting';
       state.startDateIso = DateTime.utc().plus({ milliseconds: gamePreparationLengthInMs }).toISO();
-      state.wordsToWrite = getRandomWordsToWrite();
+
+      state.wordsToWrite = this.getNextWordsToWrite();
       // // state.wordsToWrite = textToWordsToWrite('Wysyłam Ci gościu.');
       // // state.wordsToWrite = textToWordsToWrite(
       // //   'Wysyłam Ci gościu powiadomienie testowe. Tak, powiadomienie testowe.',
@@ -88,5 +90,20 @@ export class GameState {
         ctx.dispatch(new GameActions.FinishGame(true));
       }
     });
+  }
+
+  private getNextWordsToWrite() {
+    const key = 'lastWordsToWriteIndex';
+
+    const lastIndex = localStorage.getItem(key);
+    let nextIndex = lastIndex === null ? 0 : +lastIndex + 1;
+
+    if (gameTexts[nextIndex] === undefined) {
+      nextIndex = 0;
+    }
+
+    localStorage.setItem(key, nextIndex.toString());
+
+    return textToWordsToWrite(gameTexts[nextIndex]);
   }
 }

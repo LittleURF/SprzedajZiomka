@@ -12,6 +12,10 @@ export class GameSelectors {
     return game.status;
   }
 
+  static IsStatusRunning() {
+    return createSelector([GameSelectors.Status], (status) => status === 'running');
+  }
+
   @Selector([GameState])
   static StartDateIso(game: GameStateModel) {
     return game.startDateIso;
